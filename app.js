@@ -32,7 +32,7 @@ document.getElementById('financeForm').addEventListener('submit', function(event
     };
 
     if (barChart) barChart();
-    const barCtx = document.getElementById('barChart').getContext('2d');
+    const barCtx = document.getElementById('barChart');
     barChart = new Chart(barCtx, {
         type: 'bar',
         data: chartData,
@@ -46,14 +46,14 @@ document.getElementById('financeForm').addEventListener('submit', function(event
     });
 
     if (pieChart) pieChart();
-    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    const pieCtx = document.getElementById('pieChart');
     pieChart = new Chart(pieCtx, {
         type: 'pie',
         data: chartData
     });
 
     if (lineChart) lineChart();
-    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const lineCtx = document.getElementById('lineChart');
     lineChart = new Chart(lineCtx, {
         type: 'line',
         data: chartData,
