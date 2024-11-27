@@ -10,7 +10,7 @@ document.getElementById('financeForm').addEventListener('submit', function(event
     const invest = parseFloat(document.getElementById('invest').value);
     const budget = parseFloat(document.getElementById('budget').value);
 
-    const tbody = document.getElementById('financialTable').getElementsByTagName('tbody')[0];
+    const tbody = document.getElementById('financialTable');
     const newRow = tbody.insertRow();
     
     newRow.insertCell(0).textContent = income;
