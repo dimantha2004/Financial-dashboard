@@ -1,6 +1,6 @@
-const form = document.getElementById('financeform');
+let barChart, pieChart, lineChart;
 
-form.addEventListener('submit', function(event) {
+document.getElementById('financeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const income = parseFloat(document.getElementById('income').value);
@@ -10,20 +10,53 @@ form.addEventListener('submit', function(event) {
     const invest = parseFloat(document.getElementById('invest').value);
     const budget = parseFloat(document.getElementById('budget').value);
 
-    const data = {
-        labels: ['Income vs Expenses', 'Savings', 'Bills Payment', 'Investments', 'Budget'],
+    const tbody = document.getElementById('financialTable').getElementsByTagName('tbody')[0];
+    const newRow = tbody.insertRow();
+    
+    newRow.insertCell(0).textContent = income;
+    newRow.insertCell(1).textContent = expenses;
+    newRow.insertCell(2).textContent = savings;
+    newRow.insertCell(3).textContent = bills;
+    newRow.insertCell(4).textContent = invest;
+    newRow.insertCell(5).textContent = budget;
+
+    document.getElementById('financeForm').reset();
+
+    const chartData = {
+        labels: ['Income', 'Expenses', 'Savings', 'Bills', 'Invest', 'Budget'],
         datasets: [{
             label: 'Amount in USD',
-            data: [income - expenses, savings, bills, invest, budget],
-            backgroundColor: ['#4CAF50', '#2196F3', '#FF5722', '#FF9800', '#00BCD4'],
+            data: [income, expenses, savings, bills, invest, budget],
+            backgroundColor: ['#4CAF50', '#FF5722', '#2196F3', '#FF9800', '#00BCD4', '#8E24AA'],
         }]
     };
 
-    const ctx = document.getElementById('combined-chart').getContext('2d');
-
-    new Chart(ctx, {
+    if (barChart) barChart();
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    barChart = new Chart(barCtx, {
         type: 'bar',
-        data: data,
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    if (pieChart) pieChart();
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    pieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: chartData
+    });
+
+    if (lineChart) lineChart();
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    lineChart = new Chart(lineCtx, {
+        type: 'line',
+        data: chartData,
         options: {
             scales: {
                 y: {
